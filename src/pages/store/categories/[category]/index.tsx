@@ -16,12 +16,13 @@ function Index({ productos, categoryTitle }: { productos: any, categoryTitle: an
     return (
         <>
             <Header></Header>
-            <button onClick={() => router.push("/")} className='mt-24 ml-4 text-black'><svg width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <button onClick={() => router.push("/")} className='block lg:hidden mt-24 md:mt-28 ml-6 md:ml-7 text-black'><svg width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M5 12l14 0" />
                 <path d="M5 12l6 6" />
                 <path d="M5 12l6 -6" />
             </svg></button>
+            <button className='lg:block hidden mt-36 mb-5 ml-12 text-xl font-medium hover:underline' onClick={() => router.push("/")}>Back Home</button>
             <main className="mt-3">
                 <h1 className='text-center mb-12 text-4xl font-bold'>{categoryTitle.category.charAt(0).toUpperCase() + categoryTitle.category.slice(1)} Products</h1>
                 <ul className="z-0 relative mt-8 mx-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
