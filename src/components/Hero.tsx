@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 
 function Hero2() {
@@ -26,19 +27,19 @@ function Hero2() {
     getApi();
 
     return (
-        <section className='mt-20 mb-5'>
-            <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-                <header className="text-center">
-                    <h2 className="text-4xl font-bold text-gray-900">New Products</h2>
+        <section className='mt-20 mb-5 md:mt-28'>
+            <div className="mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+                <div className="text-center">
+                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900">New Products</h2>
 
-                    <p className="mx-auto mt-4 pb-2 text-xl text-gray-500">
+                    <p className="mx-auto mt-4 pb-2 md:pb-8 text-xl md:text-2xl text-gray-500">
                         Check and enjoy the best and new products with the better prices than you have seen!  
                     </p>
-                </header>
+                </div>
 
                 <ul className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3">
                     <li>
-                        <a href="#" className="group relative block">
+                        <Link href={`store/products/${product1.title}`} className="group relative block">
                             <img
                                 src={product1.image}
                                 alt="product"
@@ -54,11 +55,11 @@ function Hero2() {
                                     Shop Now
                                 </span>
                             </div>
-                        </a>
+                        </Link>
                     </li>
 
                     <li>
-                        <a href="#" className="group relative block">
+                        <Link href={`store/products/${product2.title}`} className="group relative block">
                             <img
                                 src={product2.image}
                                 alt="product"
@@ -74,11 +75,11 @@ function Hero2() {
                                     Shop Now
                                 </span>
                             </div>
-                        </a>
+                        </Link>
                     </li>
 
                     <li className="lg:col-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1">
-                        <a href="#" className="group relative block">
+                        <Link href={`store/products/${product3.title}`} className="group relative block">
                             <img
                                 src={product3.image}
                                 alt="product"
@@ -94,7 +95,7 @@ function Hero2() {
                                     Shop Now
                                 </span>
                             </div>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>

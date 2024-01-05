@@ -62,12 +62,12 @@ function Index({ productos, categoryTitle }: { productos: any, categoryTitle: an
                                     e.preventDefault()
                                 )}
                                 type="button"
-                                className="block w-full rounded bg-zinc-200 p-4 text-sm font-medium transition hover:scale-105 duration-300 mt-4"
+                                className={`${addedProduct === index ? "hidden" : "block"} w-full rounded bg-zinc-200 p-4 text-sm font-medium transition hover:scale-105 duration-300 mt-4`}
                             >
                                 Add Product
                             </button>
                             {addedProduct === index && (
-                                <div className="px-4 py-3 mt-3 leading-normal text-green-700 bg-green-300 rounded-lg" role="alert">
+                                <div className="p-4 w-full rounded leading-normal text-sm text-center text-green-700 bg-green-300" role="alert">
                                     <p>Product was added successfully</p>
                                 </div>
                             )}

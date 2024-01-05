@@ -21,11 +21,16 @@ const config: Config = {
         translateX0: {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-100%)' },
+        },
+        translateY: {
+          '0%': { transform: 'translateY(-150%)' },
+          '100%': { transform: 'translateY(0%)' },
         }
       },
       animation: {
           translateX: 'translateX 1.5s ease-in-out',
-          translateX0: 'translateX 1.5s ease-in-out'
+          translateX0: 'translateX 1.5s ease-in-out',
+          translateY: 'translateY 1.5s ease-in-out',
         },
       }
     },

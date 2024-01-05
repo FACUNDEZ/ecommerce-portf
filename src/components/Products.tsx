@@ -42,9 +42,9 @@ function Products() {
 
     return (
         <section>
-            <h1 className="font-bold text-black text-4xl text-center mt-11">Products</h1>
+            <h1 className="font-bold text-black text-4xl md:text-5xl text-center mt-11">Products</h1>
             <div className="flex justify-end items-center mt-1 mb-5">
-                <button className="mr-5" onClick={toggleFilterButton}>
+                <button className="mr-5 md:mr-10" onClick={toggleFilterButton}>
                     <svg width="35" height="35" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M14 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
@@ -168,12 +168,12 @@ function Products() {
                                 e.preventDefault()
                             )}
                             type="button"
-                            className="block w-full rounded bg-zinc-200 p-4 text-sm font-medium transition hover:scale-105 duration-300 mt-4"
+                            className={`${addedProduct === index ? "hidden" : "block"} w-full rounded bg-zinc-200 p-4 text-sm font-medium transition hover:scale-105 duration-300 mt-4`}
                         >
                             Add Product
                         </button>
                         {addedProduct === index && (
-                            <div className="px-4 py-3 mt-3 leading-normal text-green-700 bg-green-300 rounded-lg" role="alert">
+                            <div className="p-4 w-full rounded leading-normal text-sm text-center text-green-700 bg-green-300" role="alert">
                                 <p>Product was added successfully</p>
                             </div>
                         )}
