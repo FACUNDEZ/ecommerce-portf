@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Header from '@/components/Header'
 import { useRouter } from 'next/router'
 import { CartContext } from '@/context/CartContext'
+import { UserContext } from '@/context/UserContext'
 
 function Index({ productos, categoryTitle }: { productos: any, categoryTitle: any }) {
     const router = useRouter()
@@ -12,6 +13,7 @@ function Index({ productos, categoryTitle }: { productos: any, categoryTitle: an
     const [addedProduct, setAddedProduct] = useState(null)
 
     const { cart, setCart }: any = useContext(CartContext)
+    const { user }: any = useContext(UserContext)
 
     return (
         <>
@@ -50,18 +52,22 @@ function Index({ productos, categoryTitle }: { productos: any, categoryTitle: an
                                 </div>
                             </Link>
                             <button
-                                onClick={(e) => setCart(
-                                    {
-                                        products: [...cart.products, product],
-                                        price: cart.price + product.price
-                                    },
-                                    //@ts-ignore
-                                    setAddedProduct(index),
-                                    setTimeout(() => {
-                                        setAddedProduct(null)
-                                    }, 2500),
-                                    e.preventDefault()
-                                )}
+                                onClick={(e) => {
+                                    if (!user || !user.email) {
+                                        alert("Inicia sesión, por favor.");
+                                    } else {
+                                        setCart({
+                                            products: [...cart.products, product],
+                                            price: cart.price + product.price
+                                        });
+                                        //@ts-ignore
+                                        setAddedProduct(index);
+                                        setTimeout(() => {
+                                            setAddedProduct(null);
+                                        }, 2500);
+                                    }
+                                    e.preventDefault();
+                                }}
                                 type="button"
                                 className={`${addedProduct === index ? "hidden" : "block"} w-full rounded bg-zinc-200 p-4 text-sm font-medium transition hover:scale-105 duration-300 mt-4`}
                             >

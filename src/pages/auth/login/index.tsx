@@ -54,11 +54,11 @@ function Index() {
 
     return (
         <>
-            <button onClick={() => router.push("/")} className='my-2 mx-2 text-black'><svg width="38" height="38" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <button onClick={() => router.push("/")} className='my-4 mx-4 text-xl font-medium text-black'><svg width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M5 12l14 0" />
-                <path d="M5 12l6 6" />
-                <path d="M5 12l6 -6" />
+                <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
             </svg></button>
             <main
                 className="w-full h-screen flex flex-col items-center justify-center -mt-16 px-4"
@@ -101,21 +101,11 @@ function Index() {
                             />
                         </div>
                         <button
-                            className="w-full px-4 py-2 text-black font-bold bg-zinc-200 hover:bg-zinc-300 duration-300 rounded-lg"
+                            className="w-full px-4 py-3 text-black font-bold bg-zinc-200 hover:bg-zinc-300 duration-300 rounded-lg"
                         >
                             Ingresar
                         </button>
                     </form>
-                    <button
-                        className="w-full flex items-center justify-center gap-x-3 py-2.5 mt-5 border rounded-lg text-sm font-medium hover:bg-zinc-200 duration-300"
-                    >
-                        <img
-                            src="https://raw.githubusercontent.com/sidiDev/remote-assets/7cd06bf1d8859c578c2efbfda2c68bd6bedc66d8/google-icon.svg"
-                            alt="Google"
-                            className="w-5 h-5"
-                        />
-                        Continue with Google
-                    </button>
                 </div>
             </main>
         </>

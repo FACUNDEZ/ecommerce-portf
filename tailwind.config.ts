@@ -25,7 +25,7 @@ const config: Config = {
         translateY: {
           '0%': { transform: 'translateY(-150%)' },
           '100%': { transform: 'translateY(0%)' },
-        }
+        },
       },
       animation: {
           translateX: 'translateX 1.5s ease-in-out',

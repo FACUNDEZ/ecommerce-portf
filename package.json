@@ -27,6 +27,7 @@
     "typescript": "5.3.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.42.1",
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.5"
   }

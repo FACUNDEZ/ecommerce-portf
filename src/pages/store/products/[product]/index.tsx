@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { CartContext } from '@/context/CartContext';
+import { UserContext } from '@/context/UserContext';
 
 function Index({ producto, rating }: { producto: any, rating: any }) {
     const router = useRouter()
@@ -10,6 +11,7 @@ function Index({ producto, rating }: { producto: any, rating: any }) {
     const [addedProduct, setAddedProduct] = useState(false)
 
     const { cart, setCart }: any = useContext(CartContext)
+    const { user }: any = useContext(UserContext)
 
     const stars = [];
     for (let i = 0; i < Math.floor(rating); i++) {
@@ -68,30 +70,34 @@ function Index({ producto, rating }: { producto: any, rating: any }) {
                         </div>
 
                         <button
-                            onClick={(e) => setCart(
-                                {
-                                    products: [...cart.products, producto],
-                                    price: (cart.price + producto.price)
-                                },
-                                //@ts-ignore
-                                setAddedProduct(true),
-                                setTimeout(() => {
-                                    setAddedProduct(false)
-                                }, 2500),
-                                e.preventDefault()
-                            )}
+                            onClick={(e) => {
+                                if (!user || !user.email) {
+                                    alert("Inicia sesión, por favor.");
+                                } else {
+                                    setCart({
+                                        products: [...cart.products, producto],
+                                        price: cart.price + producto.price
+                                    });
+                                    //@ts-ignore
+                                    setAddedProduct(true);
+                                    setTimeout(() => {
+                                        setAddedProduct(false);
+                                    }, 2500);
+                                }
+                                e.preventDefault();
+                            }}
                             className={`${addedProduct === true ? "lg:hidden" : "lg:block"} block w-72 rounded mt-3 bg-zinc-200 p-4 text-sm font-medium transition hover:bg-zinc-300 duration-300`}
                         >
                             Agregar Producto
                         </button>
                         {addedProduct === true && (
                             <div className="p-4 w-72 mt-4 rounded leading-normal text-sm text-center text-green-700 bg-green-300" role="alert">
-                            <p>Product was added successfully</p>
-                        </div>
+                                <p>Product was added successfully</p>
+                            </div>
                         )}
                     </div>
                 </div>
-            </main>
+            </main >
         </>
     )
 }
