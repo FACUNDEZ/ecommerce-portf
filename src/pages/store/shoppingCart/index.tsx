@@ -30,7 +30,7 @@ function Index() {
                 <path d="M5 12l6 -6" />
             </svg></button>
             <h1 className='font-bold text-4xl text-center'>Shopping Cart</h1>
-            {!cart || !cart.products || !cart.price || cart.price < 1 ? (
+            {!cart || !cart.products || !cart.price || cart.price < 1 || !user || !user.email ? (
                 <p className="text-3xl h-full mt-24 mb-44 mx-2 text-center">You have not selected any product.</p>
             ) : (
                 <div

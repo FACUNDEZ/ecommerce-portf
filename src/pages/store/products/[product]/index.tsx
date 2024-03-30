@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { CartContext } from '@/context/CartContext';
+import { UserContext } from '@/context/UserContext';
 
 function Index({ producto, rating }: { producto: any, rating: any }) {
     const router = useRouter()
@@ -10,6 +11,7 @@ function Index({ producto, rating }: { producto: any, rating: any }) {
     const [addedProduct, setAddedProduct] = useState(false)
 
     const { cart, setCart }: any = useContext(CartContext)
+    const { user }: any = useContext(UserContext)
 
     const stars = [];
     for (let i = 0; i < Math.floor(rating); i++) {
@@ -33,16 +35,17 @@ function Index({ producto, rating }: { producto: any, rating: any }) {
     return (
         <>
             <Header></Header>
-            <button onClick={() => router.push("/")} className='mt-24 ml-4 text-black'><svg width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <button onClick={() => router.push("/")} className='block lg:hidden mt-24 md:mt-28 ml-6 md:ml-7 text-black'><svg width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M5 12l14 0" />
                 <path d="M5 12l6 6" />
                 <path d="M5 12l6 -6" />
             </svg></button>
+            <button className='lg:block hidden mt-36 mb-5 ml-12 text-xl font-medium hover:underline' onClick={() => router.push("/")}>Back Home</button>
             <main className='h-full mt-8 ml-5 mb-28 flex justify-center'>
-                <div className="h-full group block">
+                <div className="h-full lg:flex lg:flex-row lg:gap-10 lg:items-center group block">
                     <Image
-                        className='m-auto hover:scale-105 duration-500'
+                        className='m-auto hover:scale-105 duration-500 lg:w-full'
                         width={200}
                         height={200}
                         src={producto.image}
@@ -51,11 +54,11 @@ function Index({ producto, rating }: { producto: any, rating: any }) {
 
                     <div className="flex flex-col justify-between text-sm">
                         <div>
-                            <h3 className="text-gray-900 text-xl mt-10 ">
+                            <h3 className="text-gray-900 text-xl lg:text-2xl mt-10 ">
                                 {producto.title}
                             </h3>
 
-                            <p className=" max-w-[45ch] text-base text-gray-500 my-5">
+                            <p className=" max-w-[45ch] text-base lg:text-lg text-gray-500 my-5">
                                 {producto.description}
                             </p>
                         </div>
@@ -63,34 +66,38 @@ function Index({ producto, rating }: { producto: any, rating: any }) {
                         <div className='flex flex-row-reverse justify-between items-center mb-5'>
                             <span className='flex mr-11'>{stars}</span>
 
-                            <p className="text-gray-900 text-xl font-bold">${producto.price.toString()}</p>
+                            <p className="text-gray-900 text-xl lg:text-2xl font-bold">${producto.price.toString()}</p>
                         </div>
 
                         <button
-                            onClick={(e) => setCart(
-                                {
-                                    products: [...cart.products, producto],
-                                    price: (cart.price + producto.price)
-                                },
-                                //@ts-ignore
-                                setAddedProduct(true),
-                                setTimeout(() => {
-                                    setAddedProduct(false)
-                                }, 2500),
-                                e.preventDefault()
-                            )}
-                            className="block w-72 rounded mt-3 bg-zinc-200 p-4 text-sm font-medium transition hover:bg-zinc-300 duration-300"
+                            onClick={(e) => {
+                                if (!user || !user.email) {
+                                    alert("Inicia sesión, por favor.");
+                                } else {
+                                    setCart({
+                                        products: [...cart.products, producto],
+                                        price: cart.price + producto.price
+                                    });
+                                    //@ts-ignore
+                                    setAddedProduct(true);
+                                    setTimeout(() => {
+                                        setAddedProduct(false);
+                                    }, 2500);
+                                }
+                                e.preventDefault();
+                            }}
+                            className={`${addedProduct === true ? "lg:hidden" : "lg:block"} block w-72 rounded mt-3 bg-zinc-200 p-4 text-sm font-medium transition hover:bg-zinc-300 duration-300`}
                         >
                             Agregar Producto
                         </button>
                         {addedProduct === true && (
-                            <div className="px-4 w-72 py-3 mt-3 leading-normal text-green-700 bg-green-300 rounded-lg" role="alert">
-                            <p>Product was added successfully</p>
-                        </div>
+                            <div className="p-4 w-72 mt-4 rounded leading-normal text-sm text-center text-green-700 bg-green-300" role="alert">
+                                <p>Product was added successfully</p>
+                            </div>
                         )}
                     </div>
                 </div>
-            </main>
+            </main >
         </>
     )
 }

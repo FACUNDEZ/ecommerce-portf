@@ -12,6 +12,7 @@ export type registerResponse =
     | {
         msg: string;
         token: string;
+        authorized: boolean;
     }
     | {
         msg: string;

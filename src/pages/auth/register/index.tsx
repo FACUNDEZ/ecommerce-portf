@@ -1,7 +1,6 @@
 import Link from 'next/link'
-import { FormEvent, useState, useRef, useContext } from "react"
+import { FormEvent, useState, useRef } from "react"
 import { useRouter } from 'next/router'
-import { UserContext } from "@/context/UserContext"
 
 function Index() {
     const router = useRouter()
@@ -11,16 +10,14 @@ function Index() {
     const emailRef = useRef(null)
     const passwordRef = useRef(null)
 
-    const [loginAuthorized, setLoginAuthorized] = useState(false)
+    const [registerAuthorized, setRegisterAuthorized] = useState(false)
     const [dataMsg, setDataMsg] = useState("")
 
-    if (loginAuthorized === true) {
+    if (registerAuthorized === true) {
         setTimeout(() => {
-            setLoginAuthorized(false);
+            setRegisterAuthorized(false);
         }, 3000);
     }
-
-    const { user, setUser }: any = useContext(UserContext)
 
     const getApi = async () => {
         try {
@@ -35,12 +32,10 @@ function Index() {
             })
             const data = await response.json()
 
-            if (response.status === 200) {
-                //@ts-ignore
-                setUser({ email: emailRef.current?.value, token: data.token });
-                router.push("/")
+            if (response.status === 201 && data.authorized) {
+                alert(data.msg)
+                router.push("/auth/login")
             } else {
-                setLoginAuthorized(true)
                 setDataMsg(data.msg)
             }
         } catch (error) {
@@ -88,7 +83,7 @@ function Index() {
                     </div>
                     <div className="bg-white p-4 py-6 sm:p-6 sm:rounded-lg">
                         <form onSubmit={enviarForm} className="space-y-5">
-                            {loginAuthorized === true && (
+                            {registerAuthorized === false && (
                                 <p className='text-red-600'>{dataMsg}</p>
                             )}
                             <div>
@@ -128,23 +123,11 @@ function Index() {
                                 />
                             </div>
                             <button
-                                className="w-full px-4 py-2 text-black font-bold bg-zinc-200 hover:bg-zinc-300 duration-300 rounded-lg "
+                                className="w-full px-4 py-3 text-black font-bold bg-zinc-200 hover:bg-zinc-300 duration-300 rounded-lg"
                             >
                                 Crear Cuenta
                             </button>
                         </form>
-                        <div className="mt-5">
-                            <button
-                                className="w-full flex items-center justify-center gap-x-3 py-2.5 mt-5 border rounded-lg text-sm font-medium hover:bg-zinc-200 duration-300"
-                            >
-                                <img
-                                    src="https://raw.githubusercontent.com/sidiDev/remote-assets/7cd06bf1d8859c578c2efbfda2c68bd6bedc66d8/google-icon.svg"
-                                    alt="Google"
-                                    className="w-5 h-5"
-                                />
-                                Continue with Google
-                            </button>
-                        </div>
                     </div>
                 </div>
             </main>

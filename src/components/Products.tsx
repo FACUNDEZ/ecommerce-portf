@@ -1,10 +1,12 @@
 import { product } from "@/types/component.types";
 import { useState, useContext } from "react";
 import { CartContext } from "@/context/CartContext";
+import { UserContext } from "@/context/UserContext";
 import Image from "next/image";
 import Link from "next/link";
 
 function Products() {
+    const { user }: any = useContext(UserContext)
 
     const [products, setProducts] = useState([]);
     const [category, setCategory] = useState('');
@@ -141,32 +143,33 @@ function Products() {
                                 alt="product"
                                 className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
                             />
-
                             <div className="relative bg-white pt-3">
                                 <h3 className="text-lg text-gray-700 group-hover:underline group-hover:underline-offset-4">
                                     {product.title}
                                 </h3>
-
                                 <p className="mt-2">
                                     <span className="sr-only"> Regular Price </span>
-
                                     <span className="tracking-wider text-gray-900"> ${product.price.toString()} </span>
                                 </p>
                             </div>
                         </Link>
                         <button
-                            onClick={(e) => setCart(
-                                {
-                                    products: [...cart.products, product],
-                                    price: cart.price + product.price
-                                },
-                                //@ts-ignore
-                                setAddedProduct(index),
-                                setTimeout(() => {
-                                    setAddedProduct(null)
-                                }, 2500),
-                                e.preventDefault()
-                            )}
+                            onClick={(e) => {
+                                if (!user || !user.email) {
+                                    alert("Inicia sesión, por favor.");
+                                } else {
+                                    setCart({
+                                        products: [...cart.products, product],
+                                        price: cart.price + product.price
+                                    });
+                                    //@ts-ignore
+                                    setAddedProduct(index);
+                                    setTimeout(() => {
+                                        setAddedProduct(null);
+                                    }, 2500);
+                                }
+                                e.preventDefault();
+                            }}
                             type="button"
                             className={`${addedProduct === index ? "hidden" : "block"} w-full rounded bg-zinc-200 p-4 text-sm font-medium transition hover:scale-105 duration-300 mt-4`}
                         >
